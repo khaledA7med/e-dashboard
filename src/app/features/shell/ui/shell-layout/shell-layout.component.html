@@ -1,0 +1,34 @@
+<!-- Mobile Topbar (shown on < lg) -->
+<header class="lg:hidden sticky top-0 z-40 border-b bg-white">
+    <app-topbar (avatarClick)="openProfile()" />
+</header>
+
+<div class="min-h-screen bg-gray-50 lg:flex">
+    <!-- Desktop Sidebar -->
+    <aside class="hidden lg:block lg:w-80 border-r bg-white">
+        <app-sidebar />
+    </aside>
+
+    <!-- Main area -->
+    <div class="flex-1 flex flex-col">
+        <!-- Desktop Breadcrumb (lg only, next to sidebar) -->
+        <div class="hidden lg:block px-6 py-4 border-b bg-white">
+            <app-breadcrumb />
+        </div>
+
+        <!-- Page content (ONLY router-outlet) -->
+        <main class="flex-1 p-4 lg:p-6 pb-24 lg:pb-0">
+            <router-outlet />
+        </main>
+    </div>
+</div>
+
+<!-- ✅ Mobile Bottom Navigation -->
+<div class="lg:hidden">
+    <app-mobile-bottom-nav />
+</div>
+
+<!-- Profile sheet -->
+@if (profileOpen()) {
+<app-profile-sheet (close)="closeProfile()" (logout)="logout()" />
+}

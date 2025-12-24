@@ -1,0 +1,24 @@
+<div class="fixed inset-0 z-50 lg:hidden">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/40" (click)="close.emit()"></div>
+
+    <!-- Right sheet -->
+    <aside class="absolute right-0 top-0 h-full w-64 bg-white shadow-xl flex flex-col">
+        <!-- Drag handle (optional visual polish) -->
+        <div class="flex justify-center py-2">
+            <div class="h-1 w-10 rounded bg-gray-300"></div>
+        </div>
+
+        <!-- Content -->
+        <nav class="px-4 py-2 space-y-2">
+            <button class="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-[#fbeaea] hover:text-[#a6252a]">
+                <img src="images/user.png" alt=""> <span>Profile</span>
+            </button>
+
+            <button class="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-[#fbeaea] hover:text-[#a6252a]"
+                (click)="logout.emit()">
+                <img src="images/log-out.png" alt=""> <span>Logout</span>
+            </button>
+        </nav>
+    </aside>
+</div>

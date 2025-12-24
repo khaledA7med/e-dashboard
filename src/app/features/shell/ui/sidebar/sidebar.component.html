@@ -1,0 +1,52 @@
+<nav class="p-10 h-full flex flex-col">
+    <div class="mb-8 flex items-center justify-center">
+        <img src="images/logo.png" alt="logo">
+    </div>
+
+    <div class="flex-1 space-y-1">
+        @for (item of items; track $index) {
+        <a [routerLink]="item.path" routerLinkActive="bg-secondary text-primary"
+            class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-[#fbeaea] hover:text-[#a6252a]"
+            (click)="onNavigate()">
+            <img [src]="'images/' + item.icon" alt="{{ item.icon }}">
+            <span class="font-medium">{{ item.label }}</span>
+        </a>
+        }
+    </div>
+
+    <div class="pt-6 mt-6 border-t flex items-center gap-3 relative">
+        <img src="images/Avatar.png" width="50" alt="Avatar" />
+
+        <div class="min-w-0">
+            <div class="font-semibold">John Doe</div>
+            <div class="text-sm text-gray-500 truncate">email&#64;example.com</div>
+        </div>
+
+        <!-- Ellipsis + Dropdown -->
+        <div class="ml-auto relative">
+            <button type="button" class="p-2 rounded hover:bg-[#fbeaea]" aria-label="More options"
+                (click)="toggleProfileMenu()">
+                <img src="images/ellipsis-vertical.png" class="h-5 w-5" alt="" />
+            </button>
+
+            @if (profileMenuOpen()) {
+            <div class="absolute right-0 bottom-12 w-44 rounded-xl border bg-white shadow-lg overflow-hidden z-50">
+                <button type="button"
+                    class="w-full flex items-center gap-2 px-4 py-3 text-sm hover:bg-[#fbeaea] hover:text-[#a6252a]"
+                    (click)="onProfileClick()">
+                    <img src="images/user.png" alt="">
+                    <span>Profile</span>
+                </button>
+
+                <button type="button"
+                    class="w-full flex items-center gap-2 px-4 py-3 text-sm hover:bg-[#fbeaea] hover:text-[#a6252a]"
+                    (click)="onLogoutClick()">
+                    <img src="images/log-out.png" alt="">
+                    <span>Logout</span>
+                </button>
+            </div>
+            }
+        </div>
+    </div>
+
+</nav>
