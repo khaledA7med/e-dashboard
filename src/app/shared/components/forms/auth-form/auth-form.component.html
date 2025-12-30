@@ -1,0 +1,38 @@
+<form [formGroup]="form" class="space-y-5">
+    @for (field of config.fields; track field.name) {
+    <div class="text-left">
+        <label for="" class="block text-sm mb-1 text-gray-700">
+            {{field.label}}
+        </label>
+
+        <!-- Password field with toggle -->
+        @if (field.type === 'password') {
+        <div class="relative">
+            <input [type]="isPasswordVisible(field.name) ? 'text' : 'password'" [formControlName]="field.name"
+                [placeholder]="field.placeholder"
+                class="w-full rounded-lg bg-none text-heading text-sm rounded-e-base px-4 py-2 focus:ring-[#a6252a] focus:border-[#a6252a] placeholder:text-gray-400" />
+
+            <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                (click)="togglePassword(field.name)"
+                [attr.aria-label]="isPasswordVisible(field.name) ? 'Hide password' : 'Show password'">
+                @if (isPasswordVisible(field.name)) { 🙈 } @else { 👁️ }
+            </button>
+        </div>
+        }
+        @else if (field.type === 'otp') {
+        <app-otp-input [length]="field.otpLength ?? 6" (completed)="form.get(field.name)?.setValue($event)" />
+        }
+        @else {
+        <!-- All other field types -->
+        <input [type]="field.type" [formControlName]="field.name" [placeholder]="field.placeholder"
+            class="w-full rounded-lg bg-none text-gray-500 text-sm rounded-e-base px-4 py-2 focus:ring-[#a6252a] focus:border-[#a6252a] placeholder:text-gray-400" />
+        }
+
+        @if (form.get(field.name)?.invalid && form.get(field.name)?.touched) {
+        <p class="text-xs text-red-600 mt-1">
+            Invalid {{field.label}}
+        </p>
+        }
+    </div>
+    }
+</form>

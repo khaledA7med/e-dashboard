@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { BreadcrumbService } from '../../../services/breadcrumb.service';
 import { RouterLink } from '@angular/router';
 
 @Component({

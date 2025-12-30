@@ -1,14 +1,15 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TopbarComponent } from '../topbar/topbar.component';
 import { MobileBottomNavComponent } from '../mobile-bottom-nav/mobile-bottom-nav.component';
 import { ProfileSheetComponent } from '../profile-sheet/profile-sheet.component';
-import { BreadcrumbComponent } from '../../../../shared/ui/breadcrumb/breadcrumb.component';
+import { BreadcrumbComponent } from '../../../../shared/ui/components/breadcrumb/breadcrumb.component';
+import { AuthFacade } from '../../../auth/facade';
+import { AlertService } from '../../../../core/ui/alert/alert.service';
 
 @Component({
   selector: 'app-shell-layout',
-  standalone: true,
   imports: [
     RouterOutlet,
     SidebarComponent,
@@ -21,7 +22,18 @@ import { BreadcrumbComponent } from '../../../../shared/ui/breadcrumb/breadcrumb
   styleUrl: './shell-layout.component.scss',
 })
 export class ShellLayoutComponent {
+  private readonly auth = inject(AuthFacade);
+  private readonly alert = inject(AlertService);
+
   profileOpen = signal(false);
+
+  constructor() {
+    effect(() => {
+      if (!this.auth.isLoggedIn()) {
+        this.profileOpen.set(false);
+      }
+    });
+  }
 
   openProfile() {
     this.profileOpen.set(true);
@@ -31,8 +43,17 @@ export class ShellLayoutComponent {
     this.profileOpen.set(false);
   }
 
-  logout() {
+  async logout() {
+    const res = await this.alert.confirm({
+      title: 'Logout?',
+      text: 'You will be signed out from the dashboard.',
+      confirmText: 'Logout',
+      cancelText: 'Cancel',
+    });
+
+    if (!res.isConfirmed) return;
+
     this.profileOpen.set(false);
-    // TODO: call AuthService.logout()
+    this.auth.logout();
   }
 }

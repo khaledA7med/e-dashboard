@@ -1,0 +1,12 @@
+<form class="max-w-sm mx-auto" [formGroup]="form">
+    <div class="flex justify-center mb-2 space-x-2 rtl:space-x-reverse">
+        @for (id of ids(); track id) {
+        <div>
+            <input [id]="id" type="text" maxlength="1" inputmode="numeric"
+                class="bg-neutral-secondary-medium border border-default-medium text-center text-sm rounded-lg focus:ring-red-600 focus:border-red-600 block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                [formControlName]="key($index)" (input)="handleInput($index, $event)"
+                (keydown)="handleKeyDown($index, $event)" (paste)="handlePaste($event)" />
+        </div>
+        }
+    </div>
+</form>

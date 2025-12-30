@@ -1,0 +1,48 @@
+<app-auth-layout>
+    <h2 class="text-2xl font-semibold text-primary mb-8">
+        Enter the OTP Code
+        <span class="block text-sm font-normal text-gray-500 mt-2">
+            We have sent a 6-digit code to <strong>{{ email$ | async }}</strong>.
+        </span>
+    </h2>
+
+    <!-- Error -->
+    @if (error$ | async; as error) {
+    <div class="mb-4 rounded bg-red-50 text-red-600 px-4 py-2 text-sm">
+        {{ error.message }}
+    </div>
+    }
+
+    <!-- ✅ Dynamic Auth Form -->
+    <app-auth-form [form]="form" [config]="config"></app-auth-form>
+
+    <!-- Forgot -->
+    <div class="text-right text-sm text-gray-500 mt-3">
+        @if (!canResend()) {
+        Send a new code in
+        <span class="font-medium text-primary">
+            {{ countdownText() }}
+        </span>
+        } @else {
+        <button type="button" class="font-medium text-primary hover:underline" (click)="resend()">
+            Send a new code
+        </button>
+        }
+    </div>
+
+    <!-- Submit -->
+    <button type="button" class="w-full bg-primary text-white py-2 rounded-lg hover:opacity-90 transition mt-5"
+        (click)="submit()" [disabled]="loading$ | async">
+        @if (loading$ | async) {
+        verifying...
+        } @else {
+        Verify OTP
+        }
+    </button>
+
+    <!-- Footer -->
+    <div class="mt-8 text-sm">
+        back to <span [routerLink]="['/auth/login']" class="text-primary cursor-pointer">Login!</span>
+    </div>
+
+</app-auth-layout>

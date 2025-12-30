@@ -1,0 +1,14 @@
+<!-- auth-layout.component.html -->
+<div class="min-h-screen grid lg:grid-cols-2 bg-white">
+    <div class="flex items-center justify-center px-6">
+        <div class="w-full max-w-md text-center">
+            <div class="flex items-center justify-center mb-4"><img src="/images/separator-1.png" alt=""></div>
+            <ng-content></ng-content>
+            <div class="mt-6 flex items-center justify-center"><img src="/images/separator-2.png" alt=""></div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Image (Desktop only) -->
+    <div class="hidden lg:block bg-cover bg-center" style="background-image: url('/images/Cover.png')">
+    </div>
+</div>

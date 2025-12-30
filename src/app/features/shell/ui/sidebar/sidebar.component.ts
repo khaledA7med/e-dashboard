@@ -17,6 +17,8 @@ import { NAV_ITEMS, NavItem } from '../../../../core/layout/nav.config';
 })
 export class SidebarComponent {
   @Output() navigate = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
+
   profileMenuOpen = signal(false);
 
   items: NavItem[] = NAV_ITEMS;
@@ -55,6 +57,6 @@ export class SidebarComponent {
   onLogoutClick() {
     // TODO: call your AuthService.logout()
     this.closeProfileMenu();
-    this.navigate.emit();
+    this.logout.emit(); // ✅ emit only
   }
 }

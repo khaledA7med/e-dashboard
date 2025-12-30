@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { BreadcrumbComponent } from '../../../../shared/ui/breadcrumb/breadcrumb.component';
+import { BreadcrumbComponent } from '../../../../shared/ui/components/breadcrumb/breadcrumb.component';
 
 @Component({
   selector: 'app-topbar',
