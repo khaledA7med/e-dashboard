@@ -1,0 +1,23 @@
+<div class="rounded-2xl bg-white p-5 shadow-sm h-full">
+    <div class="mb-3 flex items-center justify-between">
+        <h3 class="text-base font-semibold text-gray-900">
+            Revenue
+        </h3>
+
+        <div class="flex gap-3 text-xs">
+            <button class="transition" [class.text-red-600]="mode === 'monthly'"
+                [class.text-gray-400]="mode !== 'monthly'" (click)="setMode('monthly')">
+                Monthly
+            </button>
+
+            <button class="transition" [class.text-red-600]="mode === 'daily'" [class.text-gray-400]="mode !== 'daily'"
+                (click)="setMode('daily')">
+                Last Week
+            </button>
+        </div>
+    </div>
+
+    <div class="h-56">
+        <canvas baseChart type="line" [data]="chartData" [options]="options"></canvas>
+    </div>
+</div>

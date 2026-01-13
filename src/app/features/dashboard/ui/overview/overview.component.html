@@ -1,0 +1,71 @@
+<!-- Overview Component HTML -->
+<div class="grid grid-cols-12 gap-6">
+
+    @if (loading()) {
+    <div class="col-span-12 lg:col-span-5">
+        <app-skeletons />
+    </div>
+
+    <div class="col-span-12 lg:col-span-7">
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="h-6 w-40 bg-gray-200 rounded animate-pulse mb-4"></div>
+            <div class="space-y-3">
+                @for (_ of [1,2,3,4,5]; track $index) {
+                <div class="h-10 bg-gray-100 rounded animate-pulse"></div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-span-12 lg:col-span-3">
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="h-6 w-32 bg-gray-200 rounded animate-pulse mb-6"></div>
+            <div class="mx-auto h-40 w-40 rounded-full bg-gray-100 animate-pulse"></div>
+            <div class="mt-6 space-y-3">
+                @for (_ of [1,2,3,4]; track $index) {
+                <div class="h-5 bg-gray-100 rounded animate-pulse"></div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-span-12 lg:col-span-9">
+        <div class="rounded-2xl bg-white p-5 shadow-sm h-full">
+            <div class="flex items-center justify-between mb-4">
+                <div class="h-6 w-24 bg-gray-200 rounded animate-pulse"></div>
+                <div class="h-5 w-28 bg-gray-100 rounded animate-pulse"></div>
+            </div>
+            <div class="h-56 bg-gray-100 rounded animate-pulse"></div>
+        </div>
+    </div>
+    } @else {
+    <!-- Row 1: KPIs (left) + Categories (right) -->
+    <div class="col-span-12 lg:col-span-5">
+        <app-kpi-cards [overall]="overall()" />
+    </div>
+
+    <div class="col-span-12 lg:col-span-7">
+        <app-category-summary [categoryStats]="categories()" />
+    </div>
+
+    <!-- Row 2: Orders Status (left) + Revenue Chart (right) -->
+    <div class="col-span-12 lg:col-span-3">
+        <app-orders-status [OrdersByStatus]="ordersByStatus()" />
+    </div>
+
+    <div class="col-span-12 lg:col-span-9">
+        <app-revenue-chart [monthly]="monthlyRevenue()" [daily]="dailyRevenue()" />
+    </div>
+
+    <!-- Top Selling -->
+    <div class="col-span-12 lg:col-span-6">
+        <app-product-list title="Top Selling Products" type="top" [topSelling]="topSelling()" />
+    </div>
+
+    <!-- Low Stock -->
+    <div class="col-span-12 lg:col-span-6">
+        <app-product-list title="Low Stock Products" type="low" [lowStock]="lowStock()" />
+    </div>
+    }
+
+</div>
