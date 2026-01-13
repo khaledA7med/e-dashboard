@@ -67,9 +67,9 @@ export const authReducer = createReducer(
     status: 'loading' as AuthStatus,
     error: null,
   })),
-  on(authActions.resetPasswordSucceeded, (state) => ({
+  on(authActions.resetPasswordSucceeded, (state, { token }) => ({
     ...state,
-    token: state.token,
+    token,
     otpVerified: false,
     status: 'success' as AuthStatus,
     resetEmail: null,

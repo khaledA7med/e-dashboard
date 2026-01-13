@@ -12,7 +12,7 @@ export const selectAuthUser = createSelector(
 
 export const selectAuthTokens = createSelector(
   selectAuthState,
-  (state) => state.token
+  (state) => state?.token
 );
 
 export const selectIsLoggedIn = createSelector(

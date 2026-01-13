@@ -1,0 +1,29 @@
+<div class="rounded-2xl bg-white p-5 shadow-sm">
+    <h3 class="mb-4 text-base font-semibold text-gray-900">
+        Orders Status
+    </h3>
+
+    <!-- Chart -->
+    <div class="flex justify-center mb-6">
+        <div class="h-40 w-40">
+            <canvas baseChart type="doughnut" [data]="chartData" [options]="options"></canvas>
+        </div>
+    </div>
+
+    <!-- List -->
+    <div class="space-y-3">
+        @for (x of view; track x.status) {
+        <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full" [style.backgroundColor]="color(x.status)"></span>
+                <span class="text-gray-700">{{ pretty(x.status) }}</span>
+            </div>
+
+            <div class="text-gray-600">
+                {{ x.count }}
+                <span class="text-xs">({{ percent(x.count) }}%)</span>
+            </div>
+        </div>
+        }
+    </div>
+</div>

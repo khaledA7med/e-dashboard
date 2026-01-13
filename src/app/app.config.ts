@@ -14,6 +14,7 @@ import { SessionService } from './core/services/session.service';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './core/helpers/auth.interceptor';
 import { provideSessionInitializer } from './core/models/session.initializer';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,5 +28,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAppInitializer(provideSessionInitializer()),
+    provideCharts(withDefaultRegisterables()),
   ],
 };
