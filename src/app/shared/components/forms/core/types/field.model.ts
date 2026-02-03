@@ -7,7 +7,8 @@ export type FieldType =
   | 'number'
   | 'select'
   | 'otp'
-  | 'textarea';
+  | 'textarea'
+  | 'file';
 
 export interface FormField {
   name: string;
@@ -18,4 +19,8 @@ export interface FormField {
   options?: { label: string; value: any }[];
   defaultValue?: any;
   otpLength?: number;
+  multiple?: boolean;
+  previewUrl?: string;
+  accept?: string;
+  maxSizeMB?: number;
 }

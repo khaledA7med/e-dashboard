@@ -13,13 +13,24 @@ export const DASHBOARD_ROUTES: Routes = [
       provideEffects(DashboardEffects),
     ],
     children: [
+      /** Overview */
       {
-        path: '',
-        pathMatch: 'full',
+        path: 'overview',
         loadComponent: () =>
           import('./ui/overview/overview.component').then(
             (c) => c.OverviewComponent
           ),
+        data: { breadcrumb: 'Overview' },
+      },
+
+      /** Categories */
+      {
+        path: 'categories',
+        loadChildren: () =>
+          import('../categories/categories.routes').then(
+            (m) => m.CATEGORIES_ROUTES
+          ),
+        data: { breadcrumb: 'Categories' },
       },
     ],
   },

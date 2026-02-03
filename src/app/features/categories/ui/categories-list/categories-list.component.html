@@ -1,0 +1,9 @@
+<app-dynaimc-list title="All Categories" [columns]="columns" [data]="items()" [actions]="actions" [loading]="loading()"
+    [page]="page()" [totalPages]="totalPages()" (searchChange)="onSearch($event)" (pageChange)="onPageChange($event)">
+    <button header-action type="button"
+        class="flex items-center gap-2 rounded-lg bg-[#A6252A] px-4 py-2 text-sm text-white hover:opacity-90"
+        (click)="goCreate()">
+        <span class="text-lg leading-none">+</span>
+        Add a new category
+    </button>
+</app-dynaimc-list>

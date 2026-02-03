@@ -7,15 +7,10 @@ export const SHELL_ROUTES: Routes = [
     path: '',
     component: ShellLayoutComponent,
     canActivateChild: [authGuard],
-    data: { breadcrumb: 'Dashboard' }, // ✅ ROOT breadcrumb
+    data: { breadcrumb: 'Dashboard' },
     children: [
       {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'overview',
-      },
-      {
-        path: 'overview',
         loadChildren: () =>
           import('../dashboard/dashboard.routes').then(
             (m) => m.DASHBOARD_ROUTES

@@ -1,1 +1,108 @@
-<p>dashboard-form works!</p>
+<div class="rounded-2xl bg-white p-6 shadow-sm">
+
+    <!-- Title -->
+    <h2 class="mb-6 text-xl font-semibold">
+        {{ config.title }}
+    </h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-5">
+
+        @for (field of config.fields; track field.name) {
+
+        <!-- TEXT / NUMBER -->
+        @if (field.type === 'text' || field.type === 'number') {
+        <div>
+            <label class="mb-1 block text-sm font-medium">
+                {{ field.label }} <span class="text-red-500">*</span>
+            </label>
+
+            <input [type]="field.type" [placeholder]="field.placeholder" [formControlName]="field.name"
+                class="w-full rounded-lg border px-4 py-2 text-sm" />
+
+            @if (isInvalid(field)) {
+            <p class="mt-1 text-xs text-red-500">
+                This field is required
+            </p>
+            }
+        </div>
+        }
+
+        <!-- TEXTAREA -->
+        @if (field.type === 'textarea') {
+        <div>
+            <label class="mb-1 block text-sm font-medium">
+                {{ field.label }} <span class="text-red-500">*</span>
+            </label>
+
+            <textarea rows="4" [placeholder]="field.placeholder" [formControlName]="field.name"
+                class="w-full rounded-lg border px-4 py-2 text-sm"></textarea>
+        </div>
+        }
+
+        <!-- SELECT -->
+        @if (field.type === 'select') {
+        <div>
+            <label class="mb-1 block text-sm font-medium">
+                {{ field.label }} <span class="text-red-500">*</span>
+            </label>
+
+            <select class="w-full rounded-lg border px-4 py-2 text-sm" [formControlName]="field.name">
+                <option value="">Select an option</option>
+
+                @for (opt of field.options ?? []; track opt.value) {
+                <option [value]="opt.value">
+                    {{ opt.label }}
+                </option>
+                }
+            </select>
+        </div>
+        }
+
+        <!-- FILE -->
+        @if (field.type === 'file') {
+        <div>
+            <label class="mb-1 block text-sm font-medium">
+                {{ field.label }}
+            </label>
+
+            <div class="flex items-center justify-between rounded-lg border px-4 py-3">
+                <div class="flex items-center gap-4">
+                    @if (imagePreviews[field.name]) {
+                    <img [src]="imagePreviews[field.name]" class="h-14 w-14 rounded object-cover border" />
+                    } @else {
+                    <span class="text-sm text-gray-400">No image selected</span>
+                    }
+                </div>
+
+                <label class="cursor-pointer text-sm font-medium text-red-600">
+                    Upload file
+                    <input type="file" class="hidden" [accept]="field.accept" (change)="onFileChange($event, field)" />
+                </label>
+            </div>
+
+            @if (isInvalid(field)) {
+            <p class="mt-1 text-xs text-red-500">
+                This field is required
+            </p>
+            }
+        </div>
+        }
+
+
+
+        }
+
+        <!-- Submit -->
+        <button type="submit" [disabled]="form.invalid || config.submitting" class="mt-6 w-full rounded-lg bg-red-700 py-3 text-sm font-semibold text-white
+         disabled:opacity-60 disabled:cursor-not-allowed">
+            @if (config.submitting) {
+            Processing...
+            } @else {
+            {{ config.submitLabel }}
+            }
+        </button>
+
+
+
+    </form>
+</div>

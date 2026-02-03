@@ -8,6 +8,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const session = inject(SessionService);
   const token = session.session()?.token?.token;
   const router = inject(Router);
+  const isAuthEndpoint = req.url.includes('/auth');
 
   if (!token) {
     return next(req);
@@ -21,7 +22,13 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((err) => {
-      if (err.status === 401) {
+      if (
+        (err.status === 401 &&
+          (err.error?.message === 'jwt expired' ||
+            err.error?.message === 'invalid token' ||
+            err.error?.code === 'TOKEN_EXPIRED')) ||
+        (isAuthEndpoint && err.status === 401)
+      ) {
         session.clearSession();
         router.navigate(['/auth/login']);
       }
